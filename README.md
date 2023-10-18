@@ -91,6 +91,7 @@ The Soul Bloom backend includes the following key functionality:
 
 ## Entity-Relationship Diagram (ERD) Table
 
+![Screenshot](https://github.com/ShaylaWhite/Soul-Bloom---Back-End/raw/main/Screenshot%202023-10-18%20123041.png)
 
 
 **Entity-Relationship Diagram (ERD) Relationships**
