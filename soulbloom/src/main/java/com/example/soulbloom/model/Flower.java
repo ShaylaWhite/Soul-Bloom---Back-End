@@ -19,15 +19,21 @@ public class Flower {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "garden_id")
+    private Garden garden;
+
+
     // Public no-argument constructor
     public Flower() {
     }
 
     // Constructor with parameters
-    public Flower(String selfCareType, String description, User user) {
+    public Flower(String selfCareType, String description, User user, Garden garden) {
         this.selfCareType = selfCareType;
         this.description = description;
         this.user = user;
+        this.garden = garden;
     }
 
     // Getters and setters for fields

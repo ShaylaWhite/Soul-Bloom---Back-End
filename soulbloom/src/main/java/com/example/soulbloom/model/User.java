@@ -1,7 +1,6 @@
 package com.example.soulbloom.model;
-import com.fasterxml.jackson.annotation.JsonInclude;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import javax.persistence.*;
 import java.util.List;
@@ -16,7 +15,6 @@ public class User {
     @Column(unique = true, nullable = false)
     private String username;
 
-    private Object JsonProperty;
     @Column
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
@@ -37,6 +35,13 @@ public class User {
         this.username = username;
         this.password = password;
         this.emailAddress = emailAddress;
+    }
+
+    public User(String username, String password, String emailAddress, List<Flower> flowers) {
+        this.username = username;
+        this.password = password;
+        this.emailAddress = emailAddress;
+        this.flowers = flowers;
     }
 
     // Getters and setters
@@ -70,6 +75,14 @@ public class User {
 
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
+    }
+
+    public List<Flower> getFlowers() {
+        return flowers;
+    }
+
+    public void setFlowers(List<Flower> flowers) {
+        this.flowers = flowers;
     }
 
     // Additional methods, if needed
