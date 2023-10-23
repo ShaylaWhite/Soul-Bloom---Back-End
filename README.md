@@ -43,50 +43,62 @@ The Soul Bloom backend includes the following key functionality:
 
 6. As a user, I want to delete a specific flower from my garden.
 
-## API Endpoints
+# Soul Bloom API Endpoints
 
-**Create a User:**
+## User Authentication
 
-- **Endpoint:** POST http://localhost:8080/api/users/
-- **Request body:** JSON representing a User object
-- **Description:** Use this endpoint to create a new user.
+### Create a User
+- **Endpoint**: POST http://localhost:9092/auth/users/register/
+- **Request body**: JSON representing a User object
+- **Description**: Use this endpoint to create a new user.
 
-**Get All Users:**
+### Login User
+- **Endpoint**: POST http://localhost:9092/auth/users/login/
+- **Request body**: JSON containing login credentials
+- **Description**: Use this endpoint for user authentication and login.
 
-- **Endpoint:** GET http://localhost:8080/api/users/
-- **Description:** Use this endpoint to retrieve a list of all users.
+## User Management
 
-**Get User by ID:**
+### Create a User
+- **Endpoint**: POST http://localhost:8080/api/users/
+- **Request body**: JSON representing a User object
+- **Description**: Use this endpoint to create a new user.
 
-- **Endpoint:** GET http://localhost:8080/api/users/{userId}
-- **Description:** Replace `{userId}` with the actual ID of the user you want to retrieve.
+### Get All Users
+- **Endpoint**: GET http://localhost:8080/api/users/
+- **Description**: Use this endpoint to retrieve a list of all users.
 
-**Update User by ID:**
+### Get User by ID
+- **Endpoint**: GET http://localhost:8080/api/users/{userId}
+- **Replace {userId} with the actual ID of the user you want to retrieve.
+- **Description**: Use this endpoint to retrieve a user by their ID.
 
-- **Endpoint:** PUT http://localhost:8080/api/users/{userId}
-- **Request body:** JSON representing the updated User object
-- **Description:** Replace `{userId}` with the actual ID of the user you want to update.
+### Update User by ID
+- **Endpoint**: PUT http://localhost:8080/api/users/{userId}
+- **Replace {userId} with the actual ID of the user you want to update.
+- **Request body**: JSON representing the updated User object.
+- **Description**: Use this endpoint to update a user's information by their ID.
 
-**Delete User by ID:**
+### Delete User by ID
+- **Endpoint**: DELETE http://localhost:8080/api/users/{userId}
+- **Replace {userId} with the actual ID of the user you want to delete.
+- **Description**: Use this endpoint to delete a user by their ID.
 
-- **Endpoint:** DELETE http://localhost:8080/api/users/{userId}
-- **Description:** Replace `{userId}` with the actual ID of the user you want to delete.
+### Add a Flower to a User's Garden
+- **Endpoint**: POST http://localhost:8080/api/users/flowers
+- **Request body**: JSON representing a Flower object.
+- **Description**: Use this endpoint to add a flower to a user's garden.
 
-**Add a Flower to a User's Garden:**
+### Delete a Flower from a User's Garden by Flower ID
+- **Endpoint**: DELETE http://localhost:8080/api/users/flowers/{flowerId}
+- **Replace {flowerId} with the actual ID of the flower you want to delete from the user's garden.
+- **Description**: Use this endpoint to delete a flower from a user's garden by Flower ID.
 
-- **Endpoint:** POST http://localhost:8080/api/users/flowers
-- **Request body:** JSON representing a Flower object
-- **Description:** Use this endpoint to add a flower to a user's garden.
+### Water a User's Garden by Garden ID
+- **Endpoint**: PUT http://localhost:8080/api/users/water-garden/{gardenId}
+- **Replace {gardenId} with the actual ID of the user's garden you want to water.
+- **Description**: Use this endpoint to water a user's garden.
 
-**Delete a Flower from a User's Garden by Flower ID:**
-
-- **Endpoint:** DELETE http://localhost:8080/api/users/flowers/{flowerId}
-- **Description:** Replace `{flowerId}` with the actual ID of the flower you want to delete from the user's garden.
-
-**Water a User's Garden by Garden ID:**
-
-- **Endpoint:** PUT http://localhost:8080/api/users/water-garden/{gardenId}
-- **Description:** Replace `{gardenId}` with the actual ID of the user's garden you want to water.
 
 ## Entity-Relationship Diagram (ERD)
 
