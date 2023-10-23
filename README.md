@@ -45,46 +45,67 @@ The Soul Bloom backend includes the following key functionality:
 
 ## API Endpoints
 
-1. User Registration:
-   - **API Endpoint:** POST /auth/register
-   - **Functionality:** Register a new user with a unique username and a secure password.
-   - **Access:** Public
+**Create a User:**
 
-2. User Login:
-   - **API Endpoint:** POST /auth/login
-   - **Functionality:** Log in and obtain an authentication token with a username and password.
-   - **Access:** Public
+- **Endpoint:** POST http://localhost:8080/api/users/
+- **Request body:** JSON representing a User object
+- **Description:** Use this endpoint to create a new user.
 
-3. Retrieve User's Garden:
-   - **API Endpoint:** GET /api/garden
-   - **Functionality:** Retrieves information about the user's garden, including the list of flowers they've planted and any maintenance information.
-   - **Access:** Private (Requires Authentication)
+**Get All Users:**
 
-4. Add Flower to Garden:
-   - **API Endpoint:** POST /api/garden/flowers
-   - **Functionality:** Allows users to add a flower to their garden, providing a self-care type and description for the flower.
-   - **Access:** Private (Requires Authentication)
+- **Endpoint:** GET http://localhost:8080/api/users/
+- **Description:** Use this endpoint to retrieve a list of all users.
 
-5. Delete Flower from Garden:
-   - **API Endpoint:** DELETE /api/garden/flowers/{flowerId}
-   - **Functionality:** Removes a specific flower from the user's garden.
-   - **Access:** Private (Requires Authentication)
-  
+**Get User by ID:**
+
+- **Endpoint:** GET http://localhost:8080/api/users/{userId}
+- **Description:** Replace `{userId}` with the actual ID of the user you want to retrieve.
+
+**Update User by ID:**
+
+- **Endpoint:** PUT http://localhost:8080/api/users/{userId}
+- **Request body:** JSON representing the updated User object
+- **Description:** Replace `{userId}` with the actual ID of the user you want to update.
+
+**Delete User by ID:**
+
+- **Endpoint:** DELETE http://localhost:8080/api/users/{userId}
+- **Description:** Replace `{userId}` with the actual ID of the user you want to delete.
+
+**Add a Flower to a User's Garden:**
+
+- **Endpoint:** POST http://localhost:8080/api/users/flowers
+- **Request body:** JSON representing a Flower object
+- **Description:** Use this endpoint to add a flower to a user's garden.
+
+**Delete a Flower from a User's Garden by Flower ID:**
+
+- **Endpoint:** DELETE http://localhost:8080/api/users/flowers/{flowerId}
+- **Description:** Replace `{flowerId}` with the actual ID of the flower you want to delete from the user's garden.
+
+**Water a User's Garden by Garden ID:**
+
+- **Endpoint:** PUT http://localhost:8080/api/users/water-garden/{gardenId}
+- **Description:** Replace `{gardenId}` with the actual ID of the user's garden you want to water.
+
 ## Entity-Relationship Diagram (ERD)
 
 ### User (Table)
-- UserID (Primary Key)
+
+- **UserID** (Primary Key)
 - Username
 - Password (hashed)
 - GardenID (Foreign Key, links to the Garden table)
 
 ### Garden (Table)
-- GardenID (Primary Key)
+
+- **GardenID** (Primary Key)
 - UserID (Foreign Key, links to the User table)
 - LastWatered (Timestamp)
 
 ### Flower (Table)
-- FlowerID (Primary Key)
+
+- **FlowerID** (Primary Key)
 - GardenID (Foreign Key, links to the Garden table)
 - SelfCareType
 - Description
