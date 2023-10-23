@@ -1,6 +1,7 @@
 package com.example.soulbloom.service;
 
 import com.example.soulbloom.exception.InformationExistException;
+import com.example.soulbloom.exception.InformationNotFoundException;
 import com.example.soulbloom.model.User;
 import com.example.soulbloom.repository.UserRepository;
 import com.example.soulbloom.request.LoginRequest;
@@ -15,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -87,5 +89,58 @@ public class UserService {
         return userRepository.findUserByEmailAddress(emailAddress);
     }
 
-    // Add methods for updating user, deleting user, and other user-related operations here.
+    //CRUD Methods for user-related operations
+    /**
+     * Retrieve a user by their user ID.
+     *
+     * @param userId The ID of the user to retrieve.
+     * @return Optional containing the user if found, or empty if not found.
+     */
+    public Optional<User> getUserById(Long userId) {
+        return userRepository.findById(userId);
+    }
+    /**
+     * Update a user's details by their user ID.
+     *
+     * @param userId      The ID of the user to update.
+     * @param updatedUser The updated user object.
+     * @return Optional containing the updated user if successful, or empty if the user is not found.
+     */
+    public Optional<User> updateUserById(Long userId, User updatedUser) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setUsername(updatedUser.getUsername()); // Update the username (name)
+            // Add more fields to update as needed
+            return Optional.of(userRepository.save(user));
+        } else {
+            throw new InformationNotFoundException("User with ID " + userId + " not found");
+        }
+    }
+
+
+    /**
+     * Delete a user by their user ID.
+     *
+     * @param userId The ID of the user to delete.
+     * @return Optional containing the deleted user if successful, or empty if the user is not found.
+     */
+    public Optional<User> deleteUserById(Long userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            userRepository.deleteById(userId);
+            return userOptional;
+        } else {
+            throw new InformationNotFoundException("User with ID " + userId + " not found");
+        }
+    }
+
+    /**
+     * Get a list of all users.
+     *
+     * @return List of all users.
+     */
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
 }
