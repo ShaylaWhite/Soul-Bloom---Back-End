@@ -1,8 +1,7 @@
 package com.example.soulbloom.service;
 
 import com.example.soulbloom.exception.InformationExistException;
-import com.example.soulbloom.exception.InformationNotFoundException;
-import com.example.soulbloom.models.User;
+import com.example.soulbloom.model.User;
 import com.example.soulbloom.repository.UserRepository;
 import com.example.soulbloom.request.LoginRequest;
 import com.example.soulbloom.security.JWTUtils;
