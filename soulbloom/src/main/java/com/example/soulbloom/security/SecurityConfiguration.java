@@ -44,7 +44,8 @@ public class SecurityConfiguration {
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/auth/doctors", "/auth/doctors/login/", "/auth/doctors/register/", "/api/doctors/{doctorId}/patients/").permitAll()
+        http.authorizeRequests()
+                .antMatchers("/api/users", "/api/users/login", "/api/users/register", "/api/users/flowers").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement()
@@ -54,6 +55,7 @@ public class SecurityConfiguration {
         http.addFilterBefore(authJwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
+
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {

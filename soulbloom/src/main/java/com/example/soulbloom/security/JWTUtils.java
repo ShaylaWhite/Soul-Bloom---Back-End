@@ -4,6 +4,7 @@ import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,13 +17,20 @@ public class JWTUtils {
     private String jwtSecret;
 
     @Value("${jwt-expiration-ms}")
-    private int jwtExpirationMs;
+    private long jwtExpirationMs = Long.MAX_VALUE; // Expires after a very long time
+
+    @PostConstruct
+    public void init() {
+        // You can keep this initialization code if needed for other purposes
+    }
 
     public String generateJwtToken(MyUserDetails myUserDetails) {
+        Date expirationDate = new Date(System.currentTimeMillis() + jwtExpirationMs);
+
         return Jwts.builder()
                 .setSubject(myUserDetails.getUsername())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+                .setExpiration(expirationDate)
                 .signWith(SignatureAlgorithm.HS256, jwtSecret)
                 .compact();
     }

@@ -2,10 +2,12 @@ package com.example.soulbloom.security;
 
 import com.example.soulbloom.model.User;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Custom UserDetails implementation for User entities.
@@ -25,7 +27,11 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new HashSet<>(); // You can define authorities if needed.
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        // Add authorities based on custom logic or your requirements
+        // Here, a simple ROLE_USER authority is added, but you can customize it as needed.
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        return authorities;
     }
 
     @Override

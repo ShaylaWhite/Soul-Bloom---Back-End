@@ -2,6 +2,7 @@ package com.example.soulbloom.model;
 
 import javax.persistence.*;
 import java.security.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -16,7 +17,7 @@ public class Garden {
     private User user;
 
     @Column
-    private Timestamp lastWatered;
+    private Date lastWatered;
 
     @OneToMany(mappedBy = "garden")
     private List<Flower> flowers;
@@ -45,11 +46,11 @@ public class Garden {
         this.user = user;
     }
 
-    public Timestamp getLastWatered() {
+    public Date getLastWatered() {
         return lastWatered;
     }
 
-    public void setLastWatered(Timestamp lastWatered) {
+    public void setLastWatered(Date lastWatered) {
         this.lastWatered = lastWatered;
     }
 
@@ -64,7 +65,7 @@ public class Garden {
     // Constructor with parameters
     public Garden(User user, Timestamp lastWatered, List<Flower> flowers) {
         this.user = user;
-        this.lastWatered = lastWatered;
+        this.lastWatered = lastWatered.getTimestamp();
         this.flowers = flowers;
     }
 }

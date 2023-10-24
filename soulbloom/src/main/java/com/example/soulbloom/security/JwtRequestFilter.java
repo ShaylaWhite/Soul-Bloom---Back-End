@@ -34,8 +34,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     private String parseJwt(HttpServletRequest request) {
         String headerAuth = request.getHeader("Authorization");
-        if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
-            return headerAuth.substring(7);
+        if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer")) {
+            // Trim the value to remove leading/trailing spaces
+            return headerAuth.substring(7).trim();
         }
         return null;
     }
@@ -54,7 +55,17 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (Exception e) {
-            logger.info("Cannot set user authentication: {}" + e);
+            logger.info("Error while processing JWT token: " + e.getMessage());
+
+            // Log the Authorization header value for inspection
+            String authorizationHeader = request.getHeader("Authorization");
+            logger.info("Authorization Header Value: " + authorizationHeader);
+
+            // Log the entire request for further inspection
+            logger.info("Request Details: " + request.toString());
+
+            // Log the stack trace for detailed debugging
+            e.printStackTrace();
         }
         filterChain.doFilter(request, response);
     }
