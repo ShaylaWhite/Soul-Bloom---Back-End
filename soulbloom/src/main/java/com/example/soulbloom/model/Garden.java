@@ -1,7 +1,7 @@
 package com.example.soulbloom.model;
 
 import javax.persistence.*;
-import java.security.Timestamp;
+import java.sql.Timestamp; // Fix the import for Timestamp
 import java.util.Date;
 import java.util.List;
 
@@ -22,10 +22,7 @@ public class Garden {
     @OneToMany(mappedBy = "garden")
     private List<Flower> flowers;
 
-
-
     public Garden() {
-
     }
 
     // Constructors, getters, and setters
@@ -63,9 +60,9 @@ public class Garden {
     }
 
     // Constructor with parameters
-    public Garden(User user, Timestamp lastWatered, List<Flower> flowers) {
+    public Garden(User user, Date lastWatered, List<Flower> flowers) { // Removed call to getTimestamp()
         this.user = user;
-        this.lastWatered = lastWatered.getTimestamp();
+        this.lastWatered = lastWatered;
         this.flowers = flowers;
     }
 }

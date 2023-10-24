@@ -23,12 +23,10 @@ public class Flower {
     @JoinColumn(name = "garden_id")
     private Garden garden;
 
-
-    // Public no-argument constructor
     public Flower() {
+        // No-argument constructor
     }
 
-    // Constructor with parameters
     public Flower(String selfCareType, String description, User user, Garden garden) {
         this.selfCareType = selfCareType;
         this.description = description;
@@ -36,7 +34,8 @@ public class Flower {
         this.garden = garden;
     }
 
-    // Getters and setters for fields
+    // Getters and setters
+
     public Long getId() {
         return id;
     }
@@ -69,5 +68,11 @@ public class Flower {
         this.user = user;
     }
 
-    // Other methods as required
+    public Garden getGarden() {
+        return garden;
+    }
+
+    public void setGarden(Garden garden) {
+        this.garden = garden;
+    }
 }

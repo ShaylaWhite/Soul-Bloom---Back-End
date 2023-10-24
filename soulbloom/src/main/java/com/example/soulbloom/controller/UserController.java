@@ -33,25 +33,7 @@ public class UserController {
 
 
 
-    /**
-     * Endpoint for retrieving all users.
-     *
-     * @return A ResponseEntity containing a list of users or a not found message.
-     *
-     * GET: /api/users/
-     */
-    @GetMapping("/")
-    public ResponseEntity<?> getAllUsers() {
-        List<User> userList = userService.getAllUsers();
-        if (userList.isEmpty()) {
-            message.put("message", "No users found");
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
-        } else {
-            message.put("message", "Success");
-            message.put("data", userList);
-            return new ResponseEntity<>(message, HttpStatus.OK);
-        }
-    }
+
 
     /**
      * Endpoint for retrieving a user by their ID.

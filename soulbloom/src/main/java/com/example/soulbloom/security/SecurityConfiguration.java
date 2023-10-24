@@ -17,18 +17,19 @@ import javax.servlet.Filter;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration {
     /**
-     Defines a bean for the BCryptPasswordEncoder, which is used for hashing passwords.
+     * Defines a bean for the BCryptPasswordEncoder, which is used for hashing passwords.
      *
-     @return BCryptPasswordEncoder bean
+     * @return BCryptPasswordEncoder bean
      */
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     /**
-     Defines a bean for the JwtRequestFilter, responsible for handling JWT-based authentication.
+     * Defines a bean for the JwtRequestFilter, responsible for handling JWT-based authentication.
      *
-     @return JwtRequestFilter bean
+     * @return JwtRequestFilter bean
      */
     @Bean
     public JwtRequestFilter authJwtRequestFilter() {
@@ -36,16 +37,15 @@ public class SecurityConfiguration {
     }
 
     /**
-     Configures the security filters for handling HTTP requests and defines security rules.
+     * Configures the security filters for handling HTTP requests and defines security rules.
      *
-     @param http HttpSecurity object for configuring security
-     @return SecurityFilterChain with configured security rules
-     @throws Exception If an error occurs while configuring security
+     * @param http HttpSecurity object for configuring security
+     * @return SecurityFilterChain with configured security rules
+     * @throws Exception If an error occurs while configuring security
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/api/users", "/api/users/login", "/api/users/register", "/api/users/flowers").permitAll()
+        http.authorizeRequests().antMatchers("/auth/users/login", "/auth/users/register").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement()
@@ -55,7 +55,6 @@ public class SecurityConfiguration {
         http.addFilterBefore(authJwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
-
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {

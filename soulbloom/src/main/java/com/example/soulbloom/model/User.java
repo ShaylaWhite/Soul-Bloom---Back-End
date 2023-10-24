@@ -3,9 +3,7 @@ package com.example.soulbloom.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
-
 import java.util.List;
-
 
 @Entity
 @Table(name = "users")
@@ -25,7 +23,7 @@ public class User {
     private String emailAddress;
 
     // Define a relationship mapping to represent the "User can have many Flowers" relationship.
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Flower> flowers;
 
     // Constructors
@@ -67,10 +65,6 @@ public class User {
         return password;
     }
 
-    public String getName() {
-        return username;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -101,5 +95,4 @@ public class User {
                 ", emailAddress='" + emailAddress + '\'' +
                 '}';
     }
-
 }
