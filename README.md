@@ -43,48 +43,81 @@ The Soul Bloom backend includes the following key functionality:
 
 6. As a user, I want to delete a specific flower from my garden.
 
-## API Endpoints
+# Soul Bloom API Endpoints
 
-1. User Registration:
-   - **API Endpoint:** POST /auth/register
-   - **Functionality:** Register a new user with a unique username and a secure password.
-   - **Access:** Public
+## User Authentication
 
-2. User Login:
-   - **API Endpoint:** POST /auth/login
-   - **Functionality:** Log in and obtain an authentication token with a username and password.
-   - **Access:** Public
+### Create a User
+- **Endpoint**: POST http://localhost:9092/auth/users/register/
+- **Request body**: JSON representing a User object
+- **Description**: Use this endpoint to create a new user.
 
-3. Retrieve User's Garden:
-   - **API Endpoint:** GET /api/garden
-   - **Functionality:** Retrieves information about the user's garden, including the list of flowers they've planted and any maintenance information.
-   - **Access:** Private (Requires Authentication)
+### Login User
+- **Endpoint**: POST http://localhost:9092/auth/users/login/
+- **Request body**: JSON containing login credentials
+- **Description**: Use this endpoint for user authentication and login.
 
-4. Add Flower to Garden:
-   - **API Endpoint:** POST /api/garden/flowers
-   - **Functionality:** Allows users to add a flower to their garden, providing a self-care type and description for the flower.
-   - **Access:** Private (Requires Authentication)
+## User Management
 
-5. Delete Flower from Garden:
-   - **API Endpoint:** DELETE /api/garden/flowers/{flowerId}
-   - **Functionality:** Removes a specific flower from the user's garden.
-   - **Access:** Private (Requires Authentication)
-  
+### Create a User
+- **Endpoint**: POST http://localhost:8080/api/users/
+- **Request body**: JSON representing a User object
+- **Description**: Use this endpoint to create a new user.
+
+### Get All Users
+- **Endpoint**: GET http://localhost:8080/api/users/
+- **Description**: Use this endpoint to retrieve a list of all users.
+
+### Get User by ID
+- **Endpoint**: GET http://localhost:8080/api/users/{userId}
+- **Replace {userId} with the actual ID of the user you want to retrieve.
+- **Description**: Use this endpoint to retrieve a user by their ID.
+
+### Update User by ID
+- **Endpoint**: PUT http://localhost:8080/api/users/{userId}
+- **Replace {userId} with the actual ID of the user you want to update.
+- **Request body**: JSON representing the updated User object.
+- **Description**: Use this endpoint to update a user's information by their ID.
+
+### Delete User by ID
+- **Endpoint**: DELETE http://localhost:8080/api/users/{userId}
+- **Replace {userId} with the actual ID of the user you want to delete.
+- **Description**: Use this endpoint to delete a user by their ID.
+
+### Add a Flower to a User's Garden
+- **Endpoint**: POST http://localhost:8080/api/users/flowers
+- **Request body**: JSON representing a Flower object.
+- **Description**: Use this endpoint to add a flower to a user's garden.
+
+### Delete a Flower from a User's Garden by Flower ID
+- **Endpoint**: DELETE http://localhost:8080/api/users/flowers/{flowerId}
+- **Replace {flowerId} with the actual ID of the flower you want to delete from the user's garden.
+- **Description**: Use this endpoint to delete a flower from a user's garden by Flower ID.
+
+### Water a User's Garden by Garden ID
+- **Endpoint**: PUT http://localhost:8080/api/users/water-garden/{gardenId}
+- **Replace {gardenId} with the actual ID of the user's garden you want to water.
+- **Description**: Use this endpoint to water a user's garden.
+
+
 ## Entity-Relationship Diagram (ERD)
 
 ### User (Table)
-- UserID (Primary Key)
+
+- **UserID** (Primary Key)
 - Username
 - Password (hashed)
 - GardenID (Foreign Key, links to the Garden table)
 
 ### Garden (Table)
-- GardenID (Primary Key)
+
+- **GardenID** (Primary Key)
 - UserID (Foreign Key, links to the User table)
 - LastWatered (Timestamp)
 
 ### Flower (Table)
-- FlowerID (Primary Key)
+
+- **FlowerID** (Primary Key)
 - GardenID (Foreign Key, links to the Garden table)
 - SelfCareType
 - Description
