@@ -1,7 +1,11 @@
 package com.example.soulbloom.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
-import java.sql.Timestamp; // Fix the import for Timestamp
 import java.util.Date;
 import java.util.List;
 
@@ -11,16 +15,18 @@ public class Garden {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @OneToOne
+    @JsonBackReference
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
     @Column
     private Date lastWatered;
 
-    @OneToMany(mappedBy = "garden")
+    @JsonIgnore
+    @OneToMany(mappedBy = "garden", fetch = FetchType.LAZY)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Flower> flowers;
+
 
     public Garden() {
     }
@@ -60,7 +66,7 @@ public class Garden {
     }
 
     // Constructor with parameters
-    public Garden(User user, Date lastWatered, List<Flower> flowers) { // Removed call to getTimestamp()
+    public Garden(User user, Date lastWatered, List<Flower> flowers) {
         this.user = user;
         this.lastWatered = lastWatered;
         this.flowers = flowers;

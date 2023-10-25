@@ -1,5 +1,8 @@
 package com.example.soulbloom.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,14 +18,19 @@ public class Flower {
     @Column(nullable = false)
     private String description;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "garden_id")
+    @JsonIgnore
     private Garden garden;
 
+
+    // Constructors
     public Flower() {
         // No-argument constructor
     }
@@ -35,7 +43,6 @@ public class Flower {
     }
 
     // Getters and setters
-
     public Long getId() {
         return id;
     }

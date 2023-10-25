@@ -1,5 +1,6 @@
 package com.example.soulbloom.controller;
 
+import com.example.soulbloom.exception.InformationNotFoundException;
 import com.example.soulbloom.model.Flower;
 import com.example.soulbloom.model.Garden;
 import com.example.soulbloom.model.User;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.example.soulbloom.request.LoginRequest;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,11 +21,6 @@ public class UserController {
 
     private UserService userService;
 
-    /**
-     * Constructor-based autowiring of the UserService dependency.
-     *
-     * @param userService The UserService implementation to be injected.
-     */
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
@@ -31,92 +28,37 @@ public class UserController {
 
     static HashMap<String, Object> message = new HashMap<>();
 
+    // User-related methods
 
-
-
-
-    /**
-     * Endpoint for retrieving a user by their ID.
-     *
-     * @param userId The ID of the user to retrieve.
-     * @return A ResponseEntity containing the user data or a not found message.
-     *
-     * GET: /api/users/{userId}
-     *
-     * @param userId The ID of the user to retrieve.
-     */
-    @GetMapping("/{userId}")
-    public ResponseEntity<?> getUserById(@PathVariable(value = "userId") Long userId) {
-        Optional<User> userOptional = userService.getUserById(userId);
-        if (userOptional.isPresent()) {
-            message.put("message", "Success");
-            message.put("data", userOptional.get());
-            return new ResponseEntity<>(message, HttpStatus.OK);
-        } else {
-            message.put("message", "User not found");
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
-        }
-    }
-
-    /**
-     * Endpoint for updating a user's information by their ID.
-     *
-     * @param userId      The ID of the user to update.
-     * @param updatedUser The updated User object.
-     * @return A ResponseEntity indicating success or not found along with a message and data.
-     *
-     * PUT: /api/users/{userId}
-     *
-     * @param userId      The ID of the user to update.
-     * @param updatedUser The updated User object.
-     */
-    @PutMapping("/{userId}")
-    public ResponseEntity<?> updateUserById(@PathVariable(value = "userId") Long userId, @RequestBody User updatedUser) {
-        Optional<User> userOptional = userService.updateUserById(userId, updatedUser);
-        if (userOptional.isPresent()) {
-            message.put("message", "User updated successfully");
-            message.put("data", userOptional.get());
-            return new ResponseEntity<>(message, HttpStatus.OK);
-        } else {
-            message.put("message", "User not found");
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
-        }
-    }
-
-    /**
-     * Endpoint for deleting a user by their ID.
-     *
-     * @param userId The ID of the user to delete.
-     * @return A ResponseEntity indicating success or not found along with a message and data.
-     *
-     * DELETE: /api/users/{userId}
-     *
-     * @param userId The ID of the user to delete.
-     */
     @DeleteMapping("/{userId}")
     public ResponseEntity<?> deleteUserById(@PathVariable(value = "userId") Long userId) {
         Optional<User> userOptional = userService.deleteUserById(userId);
         if (userOptional.isPresent()) {
             message.put("message", "User deleted successfully");
             message.put("data", userOptional.get());
-            return  new ResponseEntity<>(message, HttpStatus.OK);
+            return new ResponseEntity<>(message, HttpStatus.OK);
         } else {
             message.put("message", "User not found");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }
 
-    /**
-     * Endpoint for adding a Flower to the Garden.
-     *
-     * @param flower The Flower object representing the flower to be added.
-     * @return A ResponseEntity indicating success or conflict along with a message and data.
-     *
-     * POST: /api/users/flowers
-     *
-     * @param flower The Flower object representing the flower to be added.
-     */
-    @PostMapping("/flowers")
+    @GetMapping("/gardens/{gardenId}")
+    public ResponseEntity<?> getUserGardenById(@PathVariable Long gardenId) {
+        Garden garden = userService.getGardenById(gardenId);
+        if (garden != null) {
+            message.put("message", "Success");
+            message.put("data", garden);
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        } else {
+            message.put("message", "User's garden not found.");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    // Flower-related methods
+
+    @PostMapping("/add-flower")
     public ResponseEntity<?> addFlowerToGarden(@RequestBody Flower flower) {
         Flower addedFlower = userService.addFlowerToGarden(flower);
         if (addedFlower != null) {
@@ -129,39 +71,35 @@ public class UserController {
         }
     }
 
-    /**
-     * Endpoint for deleting a Flower from the Garden.
-     *
-     * @param flowerId The ID of the flower to be deleted.
-     * @return A ResponseEntity indicating success or not found along with a message and data.
-     *
-     * DELETE: /api/users/flowers/{flowerId}
-     *
-     * @param flowerId The ID of the flower to be deleted.
-     */
+
     @DeleteMapping("/flowers/{flowerId}")
     public ResponseEntity<?> deleteFlowerFromGarden(@PathVariable(value = "flowerId") Long flowerId) {
-        Flower deletedFlower = userService.deleteFlowerFromGarden(flowerId);
-        if (deletedFlower != null) {
+        try {
+            Flower deletedFlower = userService.deleteFlowerFromGarden(flowerId);
             message.put("message", "Flower deleted from the garden successfully");
             message.put("data", deletedFlower);
             return new ResponseEntity<>(message, HttpStatus.OK);
-        } else {
-            message.put("message", "Deleting flower from the garden failed");
+        } catch (InformationNotFoundException e) {
+            message.put("message", e.getMessage());
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }
 
-    /**
-     * Endpoint for watering the Garden.
-     *
-     * @param gardenId The ID of the garden to be watered.
-     * @return A ResponseEntity indicating success or conflict along with a message and data.
-     *
-     * PUT: /api/users/water-garden/{gardenId}
-     *
-     * @param gardenId The ID of the garden to be watered.
-     */
+    @PutMapping("/flowers/{flowerId}")
+    public ResponseEntity<?> updateFlower(@PathVariable(value = "flowerId") Long flowerId, @RequestBody Flower updatedFlowerData) {
+        try {
+            Flower updatedFlower = userService.updateFlower(flowerId, updatedFlowerData);
+            message.put("message", "Flower updated successfully");
+            message.put("data", updatedFlower);
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        } catch (InformationNotFoundException e) {
+            message.put("message", e.getMessage());
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    // Garden-related methods
+
     @PutMapping("/water-garden/{gardenId}")
     public ResponseEntity<?> waterGarden(@PathVariable(value = "gardenId") Long gardenId) {
         Garden wateredGarden = userService.waterGarden(gardenId);
@@ -174,4 +112,24 @@ public class UserController {
             return new ResponseEntity<>(message, HttpStatus.CONFLICT);
         }
     }
+
+    @PostMapping("/create-garden")
+    public ResponseEntity<?> createGarden() {
+        Garden newGarden = userService.createGarden();
+        if (newGarden != null) {
+            Garden wateredGarden = userService.waterGarden(newGarden.getId());
+            if (wateredGarden != null) {
+                message.put("message", "Garden created and watered successfully");
+                message.put("data", wateredGarden);
+                return new ResponseEntity<>(message, HttpStatus.CREATED);
+            } else {
+                message.put("message", "Watering the garden failed");
+                return new ResponseEntity<>(message, HttpStatus.CONFLICT);
+            }
+        } else {
+            message.put("message", "Creating the garden failed");
+            return new ResponseEntity<>(message, HttpStatus.CONFLICT);
+        }
+    }
 }
+

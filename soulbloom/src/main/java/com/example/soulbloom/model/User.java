@@ -1,12 +1,18 @@
 package com.example.soulbloom.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
+@JsonIgnoreProperties("gardens")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,9 +28,18 @@ public class User {
     @Column(unique = true, nullable = false)
     private String emailAddress;
 
-    // Define a relationship mapping to represent the "User can have many Flowers" relationship.
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Garden> gardens;
+
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Flower> flowers;
+
 
     // Constructors
     public User() {
@@ -35,13 +50,6 @@ public class User {
         this.username = username;
         this.password = password;
         this.emailAddress = emailAddress;
-    }
-
-    public User(String username, String password, String emailAddress, List<Flower> flowers) {
-        this.username = username;
-        this.password = password;
-        this.emailAddress = emailAddress;
-        this.flowers = flowers;
     }
 
     // Getters and setters
@@ -83,6 +91,14 @@ public class User {
 
     public void setFlowers(List<Flower> flowers) {
         this.flowers = flowers;
+    }
+
+    public List<Garden> getGardens() {
+        return gardens;
+    }
+
+    public void setGardens(List<Garden> gardens) {
+        this.gardens = gardens;
     }
 
     // Additional methods, if needed
