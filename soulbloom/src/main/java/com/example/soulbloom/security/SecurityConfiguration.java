@@ -45,16 +45,23 @@ public class SecurityConfiguration {
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/auth/users/login", "/auth/users/register").permitAll()
-                .antMatchers("/h2-console/**").permitAll()
+        http.authorizeRequests()
+                .antMatchers("/auth/users/login/", "/auth/users/register/").permitAll() // Allow login and registration without authentication
+                .antMatchers("/h2-console/**").permitAll() // Allow access to H2 console
                 .anyRequest().authenticated()
-                .and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().csrf().disable()
-                .headers().frameOptions().disable();
-        http.addFilterBefore(authJwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Set session creation policy to STATELESS
+                .and()
+                .csrf().disable() // Disable CSRF protection
+                .headers().frameOptions().disable(); // Disable frame options
+        http.cors(); // <==== ADD THIS LINE: Enable CORS (Cross-Origin Resource Sharing)
+        http.addFilterBefore(authJwtRequestFilter(), UsernamePasswordAuthenticationFilter.class); // Add JWT filter
         return http.build();
     }
+
+
+
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
