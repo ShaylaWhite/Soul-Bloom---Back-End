@@ -55,7 +55,20 @@ public class UserController {
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }
-
+    @GetMapping("/{userId}")
+    public ResponseEntity<?> getUserProfile(@PathVariable Long userId) {
+        User user = userService.findUserById(userId);
+        if (user != null) {
+            // You might want to create a DTO (Data Transfer Object) to control what user information is returned
+            // For this example, I'm returning the entire User object
+            message.put("message", "User profile retrieved successfully");
+            message.put("data", user);
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        } else {
+            message.put("message", "User not found");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+    }
     // Flower-related methods
 
     @PostMapping("/add-flower")

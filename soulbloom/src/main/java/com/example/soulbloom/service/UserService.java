@@ -95,6 +95,9 @@ public class UserService {
     public User findUserByEmailAddress(String emailAddress) {
         return userRepository.findUserByEmailAddress(emailAddress);
     }
+    public User findUserById(Long userId) {
+        return userRepository.findById(userId).orElse(null);
+    }
 
     /**
      * Delete a user by their user ID.
