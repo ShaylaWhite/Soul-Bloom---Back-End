@@ -59,13 +59,10 @@ public class UserService {
      * @throws InformationExistException If a user with the same email address already exists.
      */
     public User createUser(User userObject) {
-        if (!userRepository.existsByEmailAddress(userObject.getEmailAddress())) {
-            userObject.setPassword(passwordEncoder.encode(userObject.getPassword()));
-            return userRepository.save(userObject);
-        } else {
-            throw new InformationExistException("User with email address " + userObject.getEmailAddress() + " already exists.");
-        }
+        userObject.setPassword(passwordEncoder.encode(userObject.getPassword()));
+        return userRepository.save(userObject);
     }
+
 
     /**
      * Authenticate a user using their email address and password.

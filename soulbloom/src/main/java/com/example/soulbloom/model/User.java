@@ -28,28 +28,29 @@ public class User {
     @Column(unique = true, nullable = false)
     private String emailAddress;
 
+    @Column
+    private String name; // Add the name property
+
     @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Garden> gardens;
-
-
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Flower> flowers;
 
-
     // Constructors
     public User() {
         // Default constructor
     }
 
-    public User(String username, String password, String emailAddress) {
+    public User(String username, String password, String emailAddress, String name) { // Update the constructor
         this.username = username;
         this.password = password;
         this.emailAddress = emailAddress;
+        this.name = name;
     }
 
     // Getters and setters
@@ -85,6 +86,14 @@ public class User {
         this.emailAddress = emailAddress;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public List<Flower> getFlowers() {
         return flowers;
     }
@@ -109,6 +118,7 @@ public class User {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

@@ -13,6 +13,7 @@ import com.example.soulbloom.request.LoginRequest;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -59,16 +60,19 @@ public class UserController {
     public ResponseEntity<?> getUserProfile(@PathVariable Long userId) {
         User user = userService.findUserById(userId);
         if (user != null) {
-            // You might want to create a DTO (Data Transfer Object) to control what user information is returned
-            // For this example, I'm returning the entire User object
-            message.put("message", "User profile retrieved successfully");
-            message.put("data", user);
-            return new ResponseEntity<>(message, HttpStatus.OK);
+            Map<String, Object> response = new HashMap<>();
+            response.put("username", user.getUsername());
+            response.put("name", user.getName()); // Include name in the response
+            response.put("email", user.getEmailAddress());
+            response.put("message", "User profile retrieved successfully");
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
             message.put("message", "User not found");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }
+
+
     // Flower-related methods
 
     @PostMapping("/add-flower")
