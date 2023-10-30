@@ -1,5 +1,7 @@
 
 # Soul Bloom - Backend
+![Screenshot](Screenshot%202023-10-29%20211137.png)
+
 
 Welcome to the Soul Bloom backend repository. This backend serves as the heart of the Soul Bloom application, providing the necessary API endpoints to support the virtual self-care garden experience. Here, you will find a detailed guide on the functionality, user stories, and API endpoints that the backend supports.
 
