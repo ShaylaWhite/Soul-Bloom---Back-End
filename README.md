@@ -151,6 +151,141 @@ The Soul Bloom backend includes the following key functionality:
 
 - The (PK) indicates the primary key, and (FK) indicates a foreign key relationship.
 
+## Dependency Breakdown 
+
+## Getting Started with Dependencies 
+
+To start a new Spring Boot project, you can follow these steps:
+
+1. Go to the [Spring Initializr website](https://start.spring.io/).
+
+2. Configure your project by selecting the desired options such as project type, language, and packaging. You can also add dependencies by searching and selecting them.
+
+3. Once you've configured your project, click the "Generate" button.
+
+4. Download the generated project ZIP file.
+
+5. Extract the contents of the ZIP file to your preferred location on your computer.
+
+6. Open the project in your favorite Integrated Development Environment (IDE).
+
+7. Follow the installation instructions provided in the [Dependencies](#dependencies) section of this README to add the required dependencies to your project.
+
+8. Start coding and building your Spring Boot application!
+
+This README assumes that you've already created a Spring Boot project using the Spring Initializr website. If you're looking for instructions on how to add specific dependencies to your project, please refer to the [Dependencies](#dependencies) section for details.
+
+## Dependencies 
+
+- **Spring Boot Starter Web for RESTful APIs**
+    - [Documentation](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-developing-web-applications)
+    -   This dependency provides the necessary libraries and configurations for developing RESTful APIs with Spring Boot.
+    - To include it in your project, add the following to your `pom.xml` (if using Maven) or `build.gradle` (if using Gradle):
+
+      ```xml
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-web</artifactId>
+      </dependency>
+      ```
+
+- **Spring Boot Starter Data JPA for database interactions**
+    - [Documentation](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-jpa-and-spring-data)
+    - To include it in your project, add the following to your `pom.xml` (if using Maven) or `build.gradle` (if using Gradle):
+
+      ```xml
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-data-jpa</artifactId>
+      </dependency>
+      ```
+
+- **H2 Database for testing (you can replace it with your preferred database)**
+    - [Documentation](https://www.h2database.com/html/main.html)
+    - To include it in your project, add the following to your `pom.xml` (if using Maven) or `build.gradle` (if using Gradle):
+
+      ```xml
+      <dependency>
+          <groupId>com.h2database</groupId>
+          <artifactId>h2</artifactId>
+          <scope>runtime</scope>
+      </dependency>
+      ```
+
+- **JUnit Jupiter for testing**
+    - [Documentation](https://junit.org/junit5/docs/current/user-guide/)
+    - To include it in your project, add the following to your `pom.xml` (if using Maven) or `build.gradle` (if using Gradle):
+
+      ```xml
+      <dependency>
+          <groupId>org.junit.jupiter</groupId>
+          <artifactId>junit-jupiter-api</artifactId>
+          <version>5.8.1</version>
+          <scope>test</scope>
+      </dependency>
+      <dependency>
+          <groupId>org.junit.jupiter</groupId>
+          <artifactId>junit-jupiter-engine</artifactId>
+          <version>5.8.1</version>
+          <scope>test</scope>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-test</artifactId>
+          <scope>test</scope>
+      </dependency>
+      ```
+
+- **Spring Boot Starter Security**
+    - [Documentation](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-security)
+    - To include it in your project, add the following to your `pom.xml` (if using Maven) or `build.gradle` (if using Gradle):
+
+      ```xml
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-security</artifactId>
+      </dependency>
+      ```
+
+- **JSON Web Token (JWT) Dependencies**
+    - **jjwt-api**
+        - [Documentation](https://github.com/jwtk/jjwt)
+        - To include it in your project, add the following to your `pom.xml` (if using Maven) or `build.gradle` (if using Gradle):
+
+          ```xml
+          <dependency>
+              <groupId>io.jsonwebtoken</groupId>
+              <artifactId>jjwt-api</artifactId>
+              <version>0.11.5</version>
+          </dependency>
+          ```
+
+    - **jjwt-impl**
+        - [Documentation](https://github.com/jwtk/jjwt)
+        - To include it in your project, add the following to your `pom.xml` (if using Maven) or `build.gradle` (if using Gradle):
+
+          ```xml
+          <dependency>
+              <groupId>io.jsonwebtoken</groupId>
+              <artifactId>jjwt-impl</artifactId>
+              <version>0.11.5</version>
+              <scope>runtime</scope>
+          </dependency>
+          ```
+
+    - **jjwt-jackson**
+        - [Documentation](https://github.com/jwtk/jjwt)
+        - To include it in your project, add the following to your `pom.xml` (if using Maven) or `build.gradle` (if using Gradle):
+
+          ```xml
+          <dependency>
+              <groupId>io.jsonwebtoken</groupId>
+              <artifactId>jjwt-jackson</artifactId>
+              <version>0.11.5</version>
+              <scope>runtime</scope>
+          </dependency>
+          ```
+
   ## Challenges Faced
 - Mock MVC Challenges: Initially, none of our tests were passing due to issues in our test implementation with Mock MVC. We had to create a mock MVC user to resolve this.
 
