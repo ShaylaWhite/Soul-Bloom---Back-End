@@ -35,10 +35,17 @@ public class MyUserDetailsService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String emailAddress) throws UsernameNotFoundException {
+        if (emailAddress == null) {
+            throw new UsernameNotFoundException("Email address is null");
+        }
+
         User user = userService.findUserByEmailAddress(emailAddress);
+
         if (user == null) {
             throw new UsernameNotFoundException("User not found with email: " + emailAddress);
         }
+
         return new MyUserDetails(user);
     }
+
 }

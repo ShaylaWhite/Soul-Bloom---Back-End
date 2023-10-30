@@ -31,6 +31,12 @@ public class Garden {
     public Garden() {
     }
 
+    public Garden(long l, org.apache.catalina.User userRecord) {
+    }
+
+    public Garden(long l) {
+    }
+
     // Constructors, getters, and setters
 
     public Long getId() {
