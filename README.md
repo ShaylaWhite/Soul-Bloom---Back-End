@@ -139,7 +139,7 @@ The Soul Bloom backend includes the following key functionality:
 - SelfCareType
 - Description
 
-## Entity-Relationship Diagram (ERD) Table
+### Entity-Relationship Diagram (ERD) Table
 
 ![Screenshot](https://github.com/ShaylaWhite/Soul-Bloom---Back-End/raw/main/Screenshot%202023-10-18%20123041.png)
 
@@ -151,7 +151,7 @@ The Soul Bloom backend includes the following key functionality:
 
 - The (PK) indicates the primary key, and (FK) indicates a foreign key relationship.
 
-
+### Entity-Relationship Endpoints
 
 | Request Type | URL                                      | Functionality                            | Access   |
 |--------------|------------------------------------------|------------------------------------------|----------|
