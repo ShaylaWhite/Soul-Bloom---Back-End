@@ -1,5 +1,7 @@
 
 # Soul Bloom - Backend
+![Screenshot](Screenshot%202023-10-29%20211137.png)
+
 
 Welcome to the Soul Bloom backend repository. This backend serves as the heart of the Soul Bloom application, providing the necessary API endpoints to support the virtual self-care garden experience. Here, you will find a detailed guide on the functionality, user stories, and API endpoints that the backend supports.
 
@@ -15,10 +17,25 @@ Welcome to the Soul Bloom backend repository. This backend serves as the heart o
 - [Contributing](#contributing)
 - [License](#license)
 
+  
+
 ## Introduction
 
 Soul Bloom is a self-care and gardening application that allows users to create and nurture their virtual gardens, growing beautiful digital flowers to provide a sense of relaxation and achievement. This backend provides the necessary API endpoints to facilitate user registration, authentication, and the management of user gardens and flowers.
 
+## Tools and Technologies Used
+
+- Spring Boot
+- Spring Security
+- JWT (JSON Web Tokens)
+- H2 Database
+- JavaDoc
+- Git and GitHub
+- Spring Profiles
+- Lucidchart: Lucidchart is a cloud-based diagramming tool that offers a wide range of diagram templates, including ERDs. It provides an intuitive interface for creating and collaborating on diagrams.
+- Website: Lucidchart
+- MockMvc Test Folder
+  
 ## Functionality
 
 The Soul Bloom backend includes the following key functionality:
@@ -122,7 +139,7 @@ The Soul Bloom backend includes the following key functionality:
 - SelfCareType
 - Description
 
-## Entity-Relationship Diagram (ERD) Table
+### Entity-Relationship Diagram (ERD) Table
 
 ![Screenshot](https://github.com/ShaylaWhite/Soul-Bloom---Back-End/raw/main/Screenshot%202023-10-18%20123041.png)
 
@@ -133,6 +150,164 @@ The Soul Bloom backend includes the following key functionality:
 - The Garden table is linked to the Flower table through the GardenID foreign key.
 
 - The (PK) indicates the primary key, and (FK) indicates a foreign key relationship.
+
+### Entity-Relationship Endpoints
+
+| Request Type | URL                                      | Functionality                            | Access   |
+|--------------|------------------------------------------|------------------------------------------|----------|
+| POST         | /auth/users/login/                       | User login                               | Public   |
+| GET          | /api/categories/                         | Get all categories                        | Private  |
+| POST         | /auth/users/register/                    | User registration                         | Public   |
+| GET          | /api/users/{userId}                     | Get user profile by user ID               | Private  |
+| PUT          | /api/users/{userId}                     | Update user profile by user ID            | Private  |
+| DELETE       | /api/users/{userId}                     | Delete user by user ID                    | Private  |
+| GET          | /api/users/gardens/{gardenId}           | Get user's garden by garden ID            | Private  |
+| PUT          | /api/users/water-garden/{gardenId}      | Water user's garden by garden ID         | Private  |
+| POST         | /api/users/create-garden                | Create user's garden                      | Private  |
+| POST         | /api/users/add-flower                   | Add a flower to the user's garden         | Private  |
+| DELETE       | /api/users/flowers/{flowerId}           | Delete a flower from the user's garden by flower ID | Private  |
+| PUT          | /api/users/flowers/{flowerId}           | Update a flower by flower ID              | Private  |
+
+
+## Dependency Breakdown 
+
+## Getting Started with Dependencies 
+
+To start a new Spring Boot project, you can follow these steps:
+
+1. Go to the [Spring Initializr website](https://start.spring.io/).
+
+2. Configure your project by selecting the desired options such as project type, language, and packaging. You can also add dependencies by searching and selecting them.
+
+3. Once you've configured your project, click the "Generate" button.
+
+4. Download the generated project ZIP file.
+
+5. Extract the contents of the ZIP file to your preferred location on your computer.
+
+6. Open the project in your favorite Integrated Development Environment (IDE).
+
+7. Follow the installation instructions provided in the [Dependencies](#dependencies) section of this README to add the required dependencies to your project.
+
+8. Start coding and building your Spring Boot application!
+
+This README assumes that you've already created a Spring Boot project using the Spring Initializr website. If you're looking for instructions on how to add specific dependencies to your project, please refer to the [Dependencies](#dependencies) section for details.
+
+## Dependencies 
+
+- **Spring Boot Starter Web for RESTful APIs**
+    - [Documentation](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-developing-web-applications)
+    -   This dependency provides the necessary libraries and configurations for developing RESTful APIs with Spring Boot.
+    - To include it in your project, add the following to your `pom.xml` (if using Maven) or `build.gradle` (if using Gradle):
+
+      ```xml
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-web</artifactId>
+      </dependency>
+      ```
+
+- **Spring Boot Starter Data JPA for database interactions**
+    - [Documentation](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-jpa-and-spring-data)
+    - To include it in your project, add the following to your `pom.xml` (if using Maven) or `build.gradle` (if using Gradle):
+
+      ```xml
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-data-jpa</artifactId>
+      </dependency>
+      ```
+
+- **H2 Database for testing (you can replace it with your preferred database)**
+    - [Documentation](https://www.h2database.com/html/main.html)
+    - To include it in your project, add the following to your `pom.xml` (if using Maven) or `build.gradle` (if using Gradle):
+
+      ```xml
+      <dependency>
+          <groupId>com.h2database</groupId>
+          <artifactId>h2</artifactId>
+          <scope>runtime</scope>
+      </dependency>
+      ```
+
+- **JUnit Jupiter for testing**
+    - [Documentation](https://junit.org/junit5/docs/current/user-guide/)
+    - To include it in your project, add the following to your `pom.xml` (if using Maven) or `build.gradle` (if using Gradle):
+
+      ```xml
+      <dependency>
+          <groupId>org.junit.jupiter</groupId>
+          <artifactId>junit-jupiter-api</artifactId>
+          <version>5.8.1</version>
+          <scope>test</scope>
+      </dependency>
+      <dependency>
+          <groupId>org.junit.jupiter</groupId>
+          <artifactId>junit-jupiter-engine</artifactId>
+          <version>5.8.1</version>
+          <scope>test</scope>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-test</artifactId>
+          <scope>test</scope>
+      </dependency>
+      ```
+
+- **Spring Boot Starter Security**
+    - [Documentation](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-security)
+    - To include it in your project, add the following to your `pom.xml` (if using Maven) or `build.gradle` (if using Gradle):
+
+      ```xml
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-security</artifactId>
+      </dependency>
+      ```
+
+- **JSON Web Token (JWT) Dependencies**
+    - **jjwt-api**
+        - [Documentation](https://github.com/jwtk/jjwt)
+        - To include it in your project, add the following to your `pom.xml` (if using Maven) or `build.gradle` (if using Gradle):
+
+          ```xml
+          <dependency>
+              <groupId>io.jsonwebtoken</groupId>
+              <artifactId>jjwt-api</artifactId>
+              <version>0.11.5</version>
+          </dependency>
+          ```
+
+    - **jjwt-impl**
+        - [Documentation](https://github.com/jwtk/jjwt)
+        - To include it in your project, add the following to your `pom.xml` (if using Maven) or `build.gradle` (if using Gradle):
+
+          ```xml
+          <dependency>
+              <groupId>io.jsonwebtoken</groupId>
+              <artifactId>jjwt-impl</artifactId>
+              <version>0.11.5</version>
+              <scope>runtime</scope>
+          </dependency>
+          ```
+
+    - **jjwt-jackson**
+        - [Documentation](https://github.com/jwtk/jjwt)
+        - To include it in your project, add the following to your `pom.xml` (if using Maven) or `build.gradle` (if using Gradle):
+
+          ```xml
+          <dependency>
+              <groupId>io.jsonwebtoken</groupId>
+              <artifactId>jjwt-jackson</artifactId>
+              <version>0.11.5</version>
+              <scope>runtime</scope>
+          </dependency>
+          ```
+
+  ## Challenges Faced
+- Mock MVC Challenges: Initially, none of our tests were passing due to issues in our test implementation with Mock MVC. We had to create a mock MVC user to resolve this.
+
+
 
 ## Getting Started
 
