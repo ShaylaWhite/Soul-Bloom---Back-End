@@ -15,10 +15,25 @@ Welcome to the Soul Bloom backend repository. This backend serves as the heart o
 - [Contributing](#contributing)
 - [License](#license)
 
+  
+
 ## Introduction
 
 Soul Bloom is a self-care and gardening application that allows users to create and nurture their virtual gardens, growing beautiful digital flowers to provide a sense of relaxation and achievement. This backend provides the necessary API endpoints to facilitate user registration, authentication, and the management of user gardens and flowers.
 
+## Tools and Technologies Used
+
+- Spring Boot
+- Spring Security
+- JWT (JSON Web Tokens)
+- H2 Database
+- JavaDoc
+- Git and GitHub
+- Spring Profiles
+- Lucidchart: Lucidchart is a cloud-based diagramming tool that offers a wide range of diagram templates, including ERDs. It provides an intuitive interface for creating and collaborating on diagrams.
+- Website: Lucidchart
+- MockMvc Test Folder
+  
 ## Functionality
 
 The Soul Bloom backend includes the following key functionality:
@@ -133,6 +148,11 @@ The Soul Bloom backend includes the following key functionality:
 - The Garden table is linked to the Flower table through the GardenID foreign key.
 
 - The (PK) indicates the primary key, and (FK) indicates a foreign key relationship.
+
+  ## Challenges Faced
+- Mock MVC Challenges: Initially, none of our tests were passing due to issues in our test implementation with Mock MVC. We had to create a mock MVC user to resolve this.
+
+
 
 ## Getting Started
 
