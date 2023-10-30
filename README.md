@@ -151,6 +151,20 @@ The Soul Bloom backend includes the following key functionality:
 
 - The (PK) indicates the primary key, and (FK) indicates a foreign key relationship.
 
+Request Type	URL	Functionality	Access
+POST	/auth/users/login/	User login	Public
+GET	/api/categories/	Get all categories	Private
+POST	/auth/users/register/	User registration	Public
+GET	/api/users/{userId}	Get user profile by user ID	Private
+PUT	/api/users/{userId}	Update user profile by user ID	Private
+DELETE	/api/users/{userId}	Delete user by user ID	Private
+GET	/api/users/gardens/{gardenId}	Get user's garden by garden ID	Private
+PUT	/api/users/water-garden/{gardenId}	Water user's garden by garden ID	Private
+POST	/api/users/create-garden	Create user's garden	Private
+POST	/api/users/add-flower	Add a flower to the user's garden	Private
+DELETE	/api/users/flowers/{flowerId}	Delete a flower from the user's garden by flower ID	Private
+PUT	/api/users/flowers/{flowerId}	Update a flower by flower ID	Private
+These are all the endpoints for Soul Bloom, categorized by functionality and access level.
 ## Dependency Breakdown 
 
 ## Getting Started with Dependencies 
